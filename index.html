@@ -115,53 +115,37 @@
       opacity: 0 !important;
     }
 
-    .custom-list {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      list-style: none;
+    .custom-list-table {
+      width: 90%;
+      margin: 1vh auto 0 auto;
+      border-collapse: collapse;
       font-size: 1.3vh;
       color: #a2a2a2;
       font-weight: bold;
-      margin-top: 1vh;
-      padding: 0;
-      width: auto;
-      max-width: 22vw;
-      margin-left: auto;
-      margin-right: auto;
+      background: none;
     }
-
-    .custom-list-item {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      margin-bottom: 0.5vh;
+    .custom-list-table td {
+      padding: 0.1vh 0vw;
+      border: none;
+      text-align: center;
     }
-
-    .subitem-name {
-      flex: 1 1 0;
-      text-align: right;
+    .custom-list-table .subitem-name {
       color: #ffcc00;
-      padding-right: 0vw;
+      text-align: right;
       white-space: nowrap;
+      font-weight: bold;
+      padding-right: 0vw;
     }
-
-    .subitem-dash {
-      flex: 0 0 auto;
+    .custom-list-table .subitem-dash {
+      color: #a2a2a2;
       text-align: center;
       padding: 0 0.2vw;
     }
-
-    .subitem-price {
-      flex: 0 0 6vw;
+    .custom-list-table .subitem-price {
+      color: #dbdbdb;
       text-align: left;
-      color: #a2a2a2;
-      font-weight: bold;
       white-space: nowrap;
+      font-weight: bold;
       padding-left: 0vw;
     }
 
@@ -387,20 +371,19 @@ function renderPage() {
     `;
 
     if (items.length > 1) {
-      const list = document.createElement("ul");
-      list.classList.add("custom-list");
+      const table = document.createElement("table");
+      table.className = "custom-list-table";
       items.forEach((variation, idx) => {
         if (idx === 0) return;
-        const li = document.createElement("li");
-        li.className = "custom-list-item";
-        li.innerHTML = `
-          <span class="subitem-name">${variation.Name}</span>
-          <span class="subitem-dash"> - </span>
-          <span class="subitem-price">${variation.Price}</span>
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td class="subitem-name">${variation.Name}</td>
+          <td class="subitem-dash">-</td>
+          <td class="subitem-price">${variation.Price}</td>
         `;
-        list.appendChild(li);
+        table.appendChild(row);
       });
-      div.appendChild(list);
+      div.appendChild(table);
     }
 
     container.appendChild(div);
